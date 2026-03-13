@@ -1,42 +1,57 @@
-// src/components/layout/Navbar.jsx
-import { Bell, Search, Hexagon } from 'lucide-react'
-import { motion } from 'framer-motion'
+'use client';
+
+import { useAuth } from '@/context/AuthContext';
+import { useEnvironment } from '@/context/EnvironmentContext';
+import { LogOut } from 'lucide-react';
 
 export default function Navbar() {
+  const { user, logout } = useAuth();
+  const { selectedEnvironment, setEnvironment } = useEnvironment();
+
+  const environments = ['Development', 'Staging', 'Production'];
+
   return (
-    <motion.header 
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
-      className="h-20 border-b-2 border-vault-border bg-vault-surface/80 backdrop-blur-xl px-8 flex items-center justify-between relative z-20"
-    >
-      <div className="flex items-center gap-3">
-        <Hexagon size={24} className="text-vault-neonCyan" />
-        <div className="font-display flex flex-col leading-tight">
-           <span className="text-[10px] text-vault-textMuted tracking-widest uppercase">Active Project</span>
-           <span className="text-white font-bold tracking-wider text-lg shadow-sm drop-shadow-[1px_1px_0px_#00E5FF]">PROJECT_ZERO</span>
+    <header className="h-16 bg-[var(--background)] border-b border-[var(--border)] flex items-center justify-between px-8 sticky top-0 z-40 w-full transition-colors">
+      
+      <div className="flex items-center gap-4 ml-8 md:ml-0">
+        <div className="flex flex-col">
+          <label className="text-[10px] uppercase tracking-widest text-[var(--muted)] mb-1 font-medium">Environment</label>
+          <div className="relative">
+            <select
+              value={selectedEnvironment}
+              onChange={(e) => setEnvironment(e.target.value)}
+              className="bg-transparent text-[var(--foreground)] font-medium text-sm py-1 pr-6 outline-none appearance-none cursor-pointer hover:opacity-70 transition-opacity"
+            >
+              {environments.map(env => (
+                <option key={env} value={env} className="bg-[var(--background)] text-[var(--foreground)]">{env}</option>
+              ))}
+            </select>
+            {/* Custom down arrow */}
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none">
+              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="flex items-center gap-6">
-        <button className="relative group p-2 text-vault-textMuted hover:text-vault-neonLime transition-colors">
-          <Search size={22} />
-          <span className="absolute inset-0 bg-vault-neonLime/20 blur-md scale-0 group-hover:scale-100 transition-transform rounded-full" />
-        </button>
-        <button className="relative group p-2 text-vault-textMuted hover:text-vault-neonMagenta transition-colors">
-          <Bell size={22} />
-          <span className="absolute top-2 right-2 w-2 h-2 bg-vault-neonMagenta rounded-full border border-vault-bg animate-pulse" />
-          <span className="absolute inset-0 bg-vault-neonMagenta/20 blur-md scale-0 group-hover:scale-100 transition-transform rounded-full" />
-        </button>
-        
-        {/* User Avatar - Cyber styled */}
-        <div className="relative group cursor-pointer">
-          <div className="w-10 h-10 bg-vault-surface border-2 border-vault-neonCyan flex items-center justify-center font-display font-bold text-vault-neonCyan transform group-hover:-rotate-12 transition-transform shadow-neon-cyan">
-            OP
+      <div className="flex items-center gap-8">
+        {user && (
+          <div className="hidden sm:flex flex-col text-right">
+             <span className="text-[10px] uppercase tracking-widest text-[var(--muted)] font-medium">Account</span>
+             <span className="text-sm font-medium text-[var(--foreground)]">{user.email || 'Admin'}</span>
           </div>
-          <div className="absolute inset-0 bg-vault-neonCyan mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity" />
-        </div>
+        )}
+        
+        <button 
+          onClick={logout}
+          className="flex items-center gap-2 text-sm text-[var(--muted)] hover:text-[var(--foreground)] transition-colors group"
+        >
+          <span className="font-medium hidden sm:inline relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-[var(--foreground)] after:transition-all after:duration-300 group-hover:after:w-full">Sign Out</span>
+          <LogOut size={16} className="stroke-[1.5]" />
+        </button>
       </div>
-    </motion.header>
-  )
+    </header>
+  );
 }
