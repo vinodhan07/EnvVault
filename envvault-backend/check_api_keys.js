@@ -1,21 +1,20 @@
-import pkg from "pg";
-const { Pool } = pkg;
+import { pool } from "./src/db/db.js";
+import dotenv from "dotenv";
+dotenv.config();
 
-const pool = new Pool({
-  connectionString: "postgresql://neondb_owner:npg_9KhebU3LomyF@ep-damp-field-antj5ejj-pooler.c-6.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require",
-  ssl: { rejectUnauthorized: false }
-});
-
-async function check() {
+async function checkApiKey() {
+  const key = "envvault_sk_14978556a7c537b66d0393e132a264acecf66f24";
   try {
-    const cols = await pool.query("SELECT column_name, data_type FROM information_schema.columns WHERE table_name = 'api_keys' ORDER BY ordinal_position");
-    console.log("api_keys COLUMNS:");
-    cols.rows.forEach(r => console.log(`  ${r.column_name} (${r.data_type})`));
-  } catch(e) {
-    console.error("Error:", e.message);
-  } finally {
-    pool.end();
+    const res = await pool.query("SELECT * FROM api_keys WHERE api_key=$1", [key]);
+    console.log("Key found:", res.rows.length > 0);
+    if (res.rows.length > 0) {
+      console.log(JSON.stringify(res.rows[0], null, 2));
+    }
+    process.exit(0);
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
   }
 }
 
-check();
+checkApiKey();

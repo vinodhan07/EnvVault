@@ -104,3 +104,19 @@ body {
   color: var(--muted);
   font-weight: 300;
 }
+/* Hide Next.js dev indicator watermark and all dev overlays/toasts */
+.nextjs-static-indicator-container,
+#nextjs-dev-indicator,
+[data-nextjs-toast-wrapper],
+[data-nextjs-dialog-overlay],
+[data-nextjs-dialog-container],
+nextjs-portal,
+#nextjs-portal,
+#next-route-announcer {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  height: 0 !important;
+  width: 0 !important;
+}

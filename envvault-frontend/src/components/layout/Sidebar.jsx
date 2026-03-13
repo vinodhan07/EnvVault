@@ -2,17 +2,25 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Key, ScrollText, ShieldAlert, KeyRound } from 'lucide-react';
+import { LayoutDashboard, Key, ScrollText, ShieldAlert, KeyRound, Users, User } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
 
 const navItems = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
   { name: 'Secrets', href: '/secrets', icon: Key },
   { name: 'API Keys', href: '/api-keys', icon: KeyRound },
+  { name: 'Profile', href: '/profile', icon: User },
   { name: 'Audit Logs', href: '/audit-logs', icon: ScrollText },
 ];
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const { user } = useAuth();
+
+  const filteredNavItems = [...navItems];
+  if (user?.role === 'admin') {
+    filteredNavItems.push({ name: 'Admin Control', href: '/admin', icon: Users });
+  }
 
   return (
     <aside className="w-64 bg-[var(--background)] border-r border-[var(--border)] text-[var(--foreground)] hidden md:flex flex-col h-screen fixed left-0 top-0 transition-colors duration-300">
@@ -26,7 +34,7 @@ export default function Sidebar() {
       
       <nav className="flex-1 mt-8 space-y-2 px-4">
         <div className="text-[10px] font-medium tracking-[0.1em] text-[var(--muted)] px-4 mb-4 uppercase">Menu</div>
-        {navItems.map((item) => {
+        {filteredNavItems.map((item) => {
           const Icon = item.icon;
           const isActive = pathname === item.href;
           return (
