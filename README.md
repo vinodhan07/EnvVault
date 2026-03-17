@@ -9,17 +9,17 @@
 
 ---
 
+## 🏗️ System Architecture
+
+![System Architecture](public/architecture.png)
+*Detailed technical flow of EnvVault: Authentication, Secret Retrieval, and Audit Logging.*
+
+---
+
 ## 🎨 Dashboard Preview
 
 ![EnvVault Dashboard Mockup](public/dashboard-mockup.png)
 *Modern, high-performance interface for managing enterprise secrets.*
-
----
-
-## 🏗️ System Architecture
-
-![System Architecture](public/architecture.png)
-*Detailed flow of authentication, secret retrieval, and audit logging.*
 
 ---
 
