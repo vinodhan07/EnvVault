@@ -14,14 +14,6 @@
 ---
 
 <p align="center">
-  <img src="public/architecture.png" alt="System Architecture" width="800">
-  <br>
-  <em>Detailed technical flow of EnvVault: Authentication, Secret Retrieval, and Audit Logging.</em>
-</p>
-
----
-
-<p align="center">
   <img src="public/dashboard-mockup.png" alt="EnvVault Dashboard Mockup" width="800">
   <br>
   <em>Modern, high-performance interface for managing enterprise secrets.</em>
