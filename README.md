@@ -1,25 +1,31 @@
 # 🔐 EnvVault: Enterprise-Grade Secrets Management
 
-![Project Status](https://img.shields.io/badge/Status-Production--Ready-brightgreen)
-![Tech Stack](https://img.shields.io/badge/Stack-Next.js%20|%20Node.js%20|%20PostgreSQL-blue)
-![Security](https://img.shields.io/badge/Security-JWT%20|%20Bcrypt-orange)
-![License](https://img.shields.io/badge/License-MIT-gray)
+<p align="center">
+  <img src="https://img.shields.io/badge/Status-Production--Ready-brightgreen" alt="Project Status">
+  <img src="https://img.shields.io/badge/Stack-Next.js%20|%20Node.js%20|%20PostgreSQL-blue" alt="Tech Stack">
+  <img src="https://img.shields.io/badge/Security-JWT%20|%20Bcrypt-orange" alt="Security">
+  <img src="https://img.shields.io/badge/License-MIT-gray" alt="License">
+</p>
 
-**EnvVault** is a robust, secure, and centralized secrets management platform designed to help development teams store, manage, and distribute environment variables safely across different stages (Development, Staging, Production).
-
----
-
-## 🏗️ System Architecture
-
-![System Architecture](public/architecture.png)
-*Detailed technical flow of EnvVault: Authentication, Secret Retrieval, and Audit Logging.*
+<p align="center">
+  <strong>EnvVault</strong> is a robust, secure, and centralized secrets management platform designed to help development teams store, manage, and distribute environment variables safely across different stages (Development, Staging, Production).
+</p>
 
 ---
 
-## 🎨 Dashboard Preview
+<p align="center">
+  <img src="public/architecture.png" alt="System Architecture" width="800">
+  <br>
+  <em>Detailed technical flow of EnvVault: Authentication, Secret Retrieval, and Audit Logging.</em>
+</p>
 
-![EnvVault Dashboard Mockup](public/dashboard-mockup.png)
-*Modern, high-performance interface for managing enterprise secrets.*
+---
+
+<p align="center">
+  <img src="public/dashboard-mockup.png" alt="EnvVault Dashboard Mockup" width="800">
+  <br>
+  <em>Modern, high-performance interface for managing enterprise secrets.</em>
+</p>
 
 ---
 
