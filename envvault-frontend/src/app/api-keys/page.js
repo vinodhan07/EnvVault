@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useEnvironment } from '@/context/EnvironmentContext';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import Layout from '@/components/Layout';
 import { Plus, Trash2, Copy, Check, KeyRound, X, Loader2 } from 'lucide-react';
 import { apiKeyService } from '@/services/apiKeyService';
@@ -96,16 +97,20 @@ export default function ApiKeysPage() {
       {/* Usage hint */}
       <div className="editorial-panel p-6 mb-8 border-l-4 border-[var(--foreground)]">
         <p className="text-sm text-[var(--muted)] font-light leading-relaxed">
-          <span className="font-medium text-[var(--foreground)]">Usage:</span>{' '}
-          Once you generate a key, use it in your application's HTTP requests:
+          <span className="font-medium text-[var(--foreground)]">Dual-Identity Verification:</span>{' '}
+          Programmatic access now requires both an <span className="text-[var(--foreground)]">Environment API Key</span> and your personal <span className="text-[var(--foreground)]">User Identity Token</span> (found on your 
+          <Link href="/profile" className="text-[var(--foreground)] underline ml-1">Profile page</Link>).
         </p>
         <pre className="mt-3 text-xs font-mono text-[var(--foreground)] bg-[var(--accent)] p-4 overflow-x-auto">
-{`curl ${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'}/api/env \\
-  -H "Authorization: Bearer envvault_sk_your_key_here"
+{`# 1. Fetch secrets as text (.env format)
+curl ${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'}/api/env \\
+  -H "Authorization: Bearer envvault_sk_your_key_here" \\
+  -H "X-User-Token: your_identity_token_here"
 
-# For JSON format:
+# 2. Fetch secrets as JSON
 curl ${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'}/api/env?format=json \\
-  -H "Authorization: Bearer envvault_sk_your_key_here"`}
+  -H "Authorization: Bearer envvault_sk_your_key_here" \\
+  -H "X-User-Token: your_identity_token_here"`}
         </pre>
       </div>
 
